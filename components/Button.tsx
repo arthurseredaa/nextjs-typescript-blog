@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, forwardRef, ReactNode } from "react";
 import styled, { keyframes } from "styled-components"
 
 interface ButtonProps {
@@ -40,4 +40,6 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button: FC<ButtonProps> = ({ children, ...props }: ButtonProps) => <StyledButton {...props}>{children}</StyledButton>;
+export const Button: FC<ButtonProps> = forwardRef<HTMLButtonElement, ButtonProps>(({ children, ...props }: ButtonProps, ref) => (
+  <StyledButton ref={ref} {...props}>{children}</StyledButton>)
+)

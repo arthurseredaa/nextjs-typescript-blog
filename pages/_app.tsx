@@ -1,7 +1,10 @@
+import { wrapper } from '../redux/store';
 import '../styles/globals.css'
+import { FC } from 'react';
+import {AppProps} from 'next/app';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+const WrappedApp: FC<AppProps> = ({Component, pageProps}: any) => (
+  <Component {...pageProps} />
+)
 
-export default MyApp
+export default wrapper.withRedux(WrappedApp);

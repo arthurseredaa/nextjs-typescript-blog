@@ -1,20 +1,21 @@
 import { getPosts } from '../api/posts'
-import { Header } from '../components/Header';
+import { Flex } from '../components/Flex';
 import { Layout } from '../components/Layout';
+import { PostCard } from '../components/PostCard';
 
-export default function Home({ posts }) {
+interface HomeProps {
+  posts: Array<{ title: string, body: string, id: number }>
+}
+
+export default function Home({ posts }: HomeProps) {
 
   return (
     <Layout pageName="Home">
-      <Header />
-      {
-        posts.map(({title, body}) => (
-          <div>
-            <h1>{title}</h1>
-            <p>{body}</p>
-          </div>
-        ))
-      }
+      <Flex margin="0 auto" width="50vw">
+        {
+          posts && posts.map((post) => <PostCard {...post} />)
+        }
+      </Flex>
     </Layout>
   )
 }

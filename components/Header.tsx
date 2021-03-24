@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from './Button';
 
 const StyledHeader = styled.header`
-  width: 70vw;
+  width: 80vw;
   margin: 0 auto;
   & h1 {
     margin: 0;
@@ -35,10 +35,10 @@ export const Header: FC = () => (
           <StyledLink>link 3</StyledLink>
           <StyledLink>link 4</StyledLink>
         </Flex>
-        <Link href="/posts/new">
+        <Link href="/posts/new" passHref>
           <Button padding="15px 20px">
             Create post
-        </Button>
+          </Button>
         </Link>
       </Flex>
     </Flex>

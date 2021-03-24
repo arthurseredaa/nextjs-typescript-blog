@@ -23,6 +23,7 @@
     "**/*.ts",
     "**/*.tsx",
     "./pages/**.tsx",
+    "./components/**.tsx",
   ],
   "exclude": [
     "node_modules"

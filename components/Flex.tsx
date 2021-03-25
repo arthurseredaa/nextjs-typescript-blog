@@ -7,6 +7,7 @@ interface FlexProps {
   direction?: string;
   margin?: string;
   width?: string;
+  wrap?: string;
 }
 
 const StyledFlex = styled.div`
@@ -16,6 +17,7 @@ const StyledFlex = styled.div`
   flex-direction: ${({direction = "row"}: FlexProps) => direction};
   margin: ${({margin = "0"}: FlexProps) => margin};
   width: ${({width = "100%"}: FlexProps) => width};
+  flex-wrap: ${({wrap = "nowrap"}: FlexProps) => wrap};
 `;
 
 export const Flex:FC<FlexProps> = (props) => {

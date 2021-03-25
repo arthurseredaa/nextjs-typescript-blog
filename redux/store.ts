@@ -1,11 +1,8 @@
-import { rootReducer } from './reducers/rootReducer';
+import { rootReducer, RootState } from './reducers/rootReducer';
 import { createStore } from "redux";
-import { MakeStore, createWrapper, Context } from 'next-redux-wrapper';
+import { MakeStore, createWrapper } from 'next-redux-wrapper';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-interface State {
+const makeStore: MakeStore<RootState> = () => createStore(rootReducer, composeWithDevTools());
 
-}
-
-const makeStore: MakeStore<State> = (context: Context) => createStore(rootReducer);
-
-export const wrapper = createWrapper<State>(makeStore, { debug: false });
+export const wrapper = createWrapper<RootState>(makeStore, { debug: false });

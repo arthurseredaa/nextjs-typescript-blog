@@ -8,6 +8,7 @@ interface FlexProps {
   margin?: string;
   width?: string;
   wrap?: string;
+  self?: string;
 }
 
 const StyledFlex = styled.div`
@@ -18,6 +19,7 @@ const StyledFlex = styled.div`
   margin: ${({margin = "0"}: FlexProps) => margin};
   width: ${({width = "100%"}: FlexProps) => width};
   flex-wrap: ${({wrap = "nowrap"}: FlexProps) => wrap};
+  align-self: ${({self = "auto"}) => self}
 `;
 
 export const Flex:FC<FlexProps> = (props) => {

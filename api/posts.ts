@@ -20,14 +20,6 @@ export const getPost = async (id: string) => {
   }
 }
 
-// export const createPost = async (data: {title: string, body: string}) => {
-//   const res = await axiosInstance.post("/", {
-//     data: JSON.stringify(data),
-//     headers: {'Content-Type': 'application/json'}
-//   }).then(res => res.data);
-//   return res;
-// }
-
 export const createPost = async (data: {title: string, body: string}) => {
   try {
     const res = await fetch("https://simple-blog-api.crew.red/posts", {
@@ -49,6 +41,20 @@ export const deletePost = async (id: number) => {
   } catch(e) {
     console.log(e);
     return e;
+  }
+}
+
+export const updatePost = async (data, id) => {
+  try {
+    const res = await fetch(`https://simple-blog-api.crew.red/posts/${id}`, {
+      method: "PUT",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    }).then(res => res.json());
+    return res;
+  } catch(e) {
+    console.log(e);
+    return e
   }
 }
 

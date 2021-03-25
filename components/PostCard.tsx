@@ -1,7 +1,9 @@
 import Link from "next/link"
 import { FC } from "react"
+import { useDispatch } from "react-redux";
 import styled from "styled-components"
 import { deletePost } from "../api/posts";
+import { deleteThisPost } from "../redux/actions/posts";
 
 interface PostProps {
   id: number;
@@ -35,7 +37,7 @@ const StyledText = styled.p`
   opacity: .4;
   color: #e53935;
   position: absolute;
-  bottom: -7px;
+  bottom: -10px;
   right: 5px;
   transition: .1s all linear;
   &:hover {
@@ -44,16 +46,18 @@ const StyledText = styled.p`
 `;
 
 export const PostCard: FC<PostProps> = ({ id, title, body }) => {
+  const dispatch = useDispatch();
+
   const handleDelete = async (e) => {
     e.stopPropagation();
     const res = await deletePost(id);
-    console.log(res)
+    dispatch(deleteThisPost(id));
   }
   return (
     <Link href={`/posts/${id}`} passHref>
       <StyledCard>
-        <h1>{title}</h1>
-        <p>{body.length > 100 ? body.substring(0, 100) + "..." : body}</p>
+        <h1>{title && title.length > 45 ? title.substring(0, 45).trim() + "..." : title}</h1>
+        <p>{body && body.length > 100 ? body.substring(0, 100) + "..." : body}</p>
         <StyledText onClick={handleDelete}>delete post</StyledText>
       </StyledCard>
     </Link>

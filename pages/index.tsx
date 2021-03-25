@@ -13,7 +13,7 @@ export default function Home({ posts }: HomeProps) {
     <Layout pageName="Home">
       <Flex margin="50px auto 0" width="1200px" wrap="wrap" justify="flex-start">
         {
-          posts && posts.map((post) => <PostCard {...post} />)
+          posts && posts.map((post) => <PostCard key={post.id} {...post} />)
         }
       </Flex>
     </Layout>

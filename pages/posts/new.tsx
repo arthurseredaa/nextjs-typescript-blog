@@ -1,10 +1,12 @@
 import { Button } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { createPost } from "../../api/posts";
 import { Flex } from "../../components/Flex";
 import { Layout } from "../../components/Layout";
+import { setNewPost } from "../../redux/actions/posts";
 
 //  36
 
@@ -37,6 +39,7 @@ const StyledBody = styled.textarea`
 `;
 
 function CreatePost() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [state, setState] = useState({
     title: "",
@@ -47,10 +50,12 @@ function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {title, body} = state;
+    const { title, body } = state;
 
-    if(title.length > 0 && body.length > 0) {
-      const res = await createPost({...state});
+    if (title.length > 0 && body.length > 0) {
+      const res = await createPost(state);
+      dispatch(setNewPost({ ...state, id: res.id }));
+      setState({ title: "", body: "" });
       router.push(`/posts/${res.id}`);
       console.log(res);
     }

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { FC } from "react"
 import styled from "styled-components"
+import { deletePost } from "../api/posts";
 
 interface PostProps {
   id: number;
@@ -27,13 +28,34 @@ const StyledCard = styled.div`
   &:hover {
     box-shadow: 5px 5px 10px black
   }
+  position: relative;
 `;
 
-export const PostCard: FC<PostProps> = ({ id, title, body }) => (
-  <Link href={`/posts/${id}`} passHref>
-    <StyledCard>
-      <h1>{title}</h1>
-      <p>{body}</p>
-    </StyledCard>
-  </Link>
-)
+const StyledText = styled.p`
+  opacity: .4;
+  color: #e53935;
+  position: absolute;
+  bottom: -7px;
+  right: 5px;
+  transition: .1s all linear;
+  &:hover {
+    opacity: 1
+  }
+`;
+
+export const PostCard: FC<PostProps> = ({ id, title, body }) => {
+  const handleDelete = async (e) => {
+    e.stopPropagation();
+    const res = await deletePost(id);
+    console.log(res)
+  }
+  return (
+    <Link href={`/posts/${id}`} passHref>
+      <StyledCard>
+        <h1>{title}</h1>
+        <p>{body.length > 100 ? body.substring(0, 100) + "..." : body}</p>
+        <StyledText onClick={handleDelete}>delete post</StyledText>
+      </StyledCard>
+    </Link>
+  )
+}

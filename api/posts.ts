@@ -41,3 +41,13 @@ export const createPost = async (data: {title: string, body: string}) => {
     return e;
   }
 }
+
+export const deletePost = async (id: number) => {
+  try {
+    const res = await axiosInstance.delete(`/${id}`);
+    return res;
+  } catch(e) {
+    console.log(e);
+    return e;
+  }
+}

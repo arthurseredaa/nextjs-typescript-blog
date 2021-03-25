@@ -1,7 +1,11 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { getPost, getPosts } from "../../api/posts";
+import { Comments } from "../../components/Comments";
 import { Flex } from "../../components/Flex";
 import { Layout } from "../../components/Layout";
+import { setComments } from "../../redux/actions/posts";
 
 interface Post {
   id: number;
@@ -16,13 +20,24 @@ const StyledPostItem = styled.div`
     background-color: black;
     color: white;
     display: inline-block;
-    line-height: 1;
+    line-height: 1.2;
     text-transform: uppercase;
+  };
+  & > h3 {
+    line-height: 1.5;
+    font-weight: 400;
   }
 `;
 
 function PostItem({ post }) {
-  const { title, body } = post;
+  const dispatch = useDispatch();
+
+  const { title, body, comments, id } = post;
+
+  useEffect(() => {
+    dispatch(setComments(comments));
+  }, [])
+
   return (
     <Layout pageName={post.title}>
       <Flex width="50%" margin="50px auto 0" direction="column">
@@ -30,6 +45,7 @@ function PostItem({ post }) {
           <h1>{title}</h1>
           <h3>{body}</h3>
         </StyledPostItem>
+        <Comments postId={id} />
       </Flex>
     </Layout>
   )

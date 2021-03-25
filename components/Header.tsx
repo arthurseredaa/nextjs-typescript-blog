@@ -19,6 +19,7 @@ const StyledLink = styled.a`
   opacity: .6;
   cursor: pointer;
   transition: .1s all linear;
+  margin: 0 5px;
   &:hover {
     opacity: 1;
   }
@@ -31,7 +32,7 @@ export const Header: FC = () => (
         <h1>Logo</h1>
       </Link>
       <Flex align="center" justify="flex-end" width="70%">
-        <Flex width="30%" align="center" justify="space-around" margin="0px 40px">
+        <Flex width="40%" align="center" justify="space-around" margin="0px 40px">
           <StyledLink>Feautures</StyledLink>
           <StyledLink>Showcase</StyledLink>
           <StyledLink>Resources</StyledLink>

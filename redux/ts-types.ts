@@ -16,6 +16,8 @@ export enum PostsActionTypes {
   FETCH_COMMENTS = "FETCH_COMMENTS",
   SET_COMMENTS = "SET_COMMENTS",
   SET_NEW_COMMENT = "SET_NEW_COMMENT",
+  SET_IS_UPDATE = "SET_IS_UPDATE",
+  SET_CURRENT_POST = "SET_CURRENT_POST",
 }
 
 export interface SetPosts {
@@ -38,9 +40,19 @@ export interface SetComments {
   payload: Array<any>
 }
 
-export interface setNewComment {
+export interface SetNewComment {
   type: PostsActionTypes.SET_NEW_COMMENT,
   payload: {comment: string, id: string},
 }
 
-export type PostsAction = SetPosts | SetComments | setNewComment | SetNewPost | DeletePost;
+export interface SetIsUpdate {
+  type: PostsActionTypes.SET_IS_UPDATE,
+  payload: boolean
+}
+
+export interface SetCurrentPost {
+  type: PostsActionTypes.SET_CURRENT_POST,
+  payload: number | string
+}
+
+export type PostsAction = SetPosts | SetComments | SetNewComment | SetNewPost | DeletePost | SetIsUpdate | SetCurrentPost;

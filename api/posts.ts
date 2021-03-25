@@ -1,13 +1,23 @@
 import { axiosInstance } from './axiosInstance';
 
 export const getPosts = async () => {
-  const data = await axiosInstance.get("/").then(res => res.data)
-  return data;
+  try {
+    const data = await axiosInstance.get("/").then(res => res.data)
+    return data;
+  } catch(e) {
+    console.log(e);
+    return e;
+  }
 }
 
 export const getPost = async (id: string) => {
-  const data = await axiosInstance.get(`/${id}`).then(res => res.data);
-  return data
+  try {
+    const data = await axiosInstance.get(`/${id}`).then(res => res.data);
+    return data
+  } catch(e) {
+    console.log(e);
+    return e;
+  }
 }
 
 // export const createPost = async (data: {title: string, body: string}) => {
@@ -19,10 +29,15 @@ export const getPost = async (id: string) => {
 // }
 
 export const createPost = async (data: {title: string, body: string}) => {
-  const res = await fetch("https://simple-blog-api.crew.red/posts ", {
+  try {
+    const res = await fetch("https://simple-blog-api.crew.red/posts ", {
     method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data)
-  }).then(res => res.json());
-  return res;
+    }).then(res => res.json());
+    return res;
+  } catch(e) {
+    console.log(e);
+    return e;
+  }
 }

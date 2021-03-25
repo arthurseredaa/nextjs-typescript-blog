@@ -12,7 +12,7 @@ export const getPosts = async () => {
 
 export const getPost = async (id: string) => {
   try {
-    const data = await axiosInstance.get(`/${id}`).then(res => res.data);
+    const data = await axiosInstance.get(`/${id}?_embed=comments`).then(res => res.data);
     return data
   } catch(e) {
     console.log(e);
@@ -22,7 +22,7 @@ export const getPost = async (id: string) => {
 
 // export const createPost = async (data: {title: string, body: string}) => {
 //   const res = await axiosInstance.post("/", {
-//     body: data,
+//     data: JSON.stringify(data),
 //     headers: {'Content-Type': 'application/json'}
 //   }).then(res => res.data);
 //   return res;
@@ -30,7 +30,7 @@ export const getPost = async (id: string) => {
 
 export const createPost = async (data: {title: string, body: string}) => {
   try {
-    const res = await fetch("https://simple-blog-api.crew.red/posts ", {
+    const res = await fetch("https://simple-blog-api.crew.red/posts", {
     method: "POST",
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(data)
@@ -49,5 +49,18 @@ export const deletePost = async (id: number) => {
   } catch(e) {
     console.log(e);
     return e;
+  }
+}
+
+export const createComment = async (data) => {
+  try {
+    const res = await fetch("https://simple-blog-api.crew.red/comments", {
+      method: "POST",
+      body: JSON.stringify(data)
+    }).then(res => res.json());
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error;
   }
 }

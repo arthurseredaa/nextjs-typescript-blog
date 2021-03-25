@@ -27,13 +27,15 @@ const StyledLink = styled.a`
 export const Header: FC = () => (
   <StyledHeader>
     <Flex align="center" justify="space-around">
-      <h1>Logo</h1>
+      <Link href="/" passHref>
+        <h1>Logo</h1>
+      </Link>
       <Flex align="center" justify="flex-end" width="70%">
-        <Flex width="20%" align="center" justify="space-around" margin="0px 40px">
-          <StyledLink>link 1</StyledLink>
-          <StyledLink>link 2</StyledLink>
-          <StyledLink>link 3</StyledLink>
-          <StyledLink>link 4</StyledLink>
+        <Flex width="30%" align="center" justify="space-around" margin="0px 40px">
+          <StyledLink>Feautures</StyledLink>
+          <StyledLink>Showcase</StyledLink>
+          <StyledLink>Resources</StyledLink>
+          <StyledLink>Pricing</StyledLink>
         </Flex>
         <Link href="/posts/new" passHref>
           <Button padding="15px 20px">

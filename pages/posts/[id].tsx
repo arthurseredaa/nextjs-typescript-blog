@@ -5,7 +5,9 @@ import { getPost, getPosts } from "../../api/posts";
 import { Comments } from "../../components/Comments";
 import { Flex } from "../../components/Flex";
 import { Layout } from "../../components/Layout";
-import { setComments } from "../../redux/actions/posts";
+import { setComments, setCurrentPost, setIsUpdate } from "../../redux/actions/posts";
+import Link from "next/link";
+import { Button } from "@material-ui/core";
 
 interface Post {
   id: number;
@@ -38,9 +40,21 @@ function PostItem({ post }) {
     dispatch(setComments(comments));
   }, [])
 
+  const handleUpdate = () => {
+    dispatch(setCurrentPost(id));
+    dispatch(setIsUpdate(true));
+  }
+
   return (
     <Layout pageName={post.title}>
       <Flex width="50%" margin="50px auto 0" direction="column">
+        <Flex justify="flex-end" width="40%" self="flex-end">
+          <Link href={`/posts/new`}>
+            <Button variant="outlined" onClick={handleUpdate}>
+              Update
+          </Button>
+          </Link>
+        </Flex>
         <StyledPostItem>
           <h1>{title}</h1>
           <h3>{body}</h3>
@@ -55,6 +69,7 @@ export async function getStaticPaths() {
   const posts = await getPosts();
 
   const paths = posts.map((post: Post) => ({ params: { id: post.id.toString() } }));
+
   return { paths, fallback: false }
 }
 

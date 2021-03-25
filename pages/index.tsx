@@ -1,19 +1,32 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { getPosts } from '../api/posts'
 import { Flex } from '../components/Flex';
 import { Layout } from '../components/Layout';
 import { PostCard } from '../components/PostCard';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { setPosts } from '../redux/actions/posts';
 
 interface HomeProps {
-  posts: Array<{ title: string, body: string, id: number }>
+  data: Array<{ title: string, body: string, id: number }>
 }
 
-export default function Home({ posts }: HomeProps) {
+export default function Home({ data }: HomeProps) {
+  const dispatch = useDispatch();
+  const posts = useTypedSelector(state => state.posts.posts);
+  useEffect(() => {
+    dispatch(setPosts(data))
+  }, [])
 
   return (
     <Layout pageName="Home">
       <Flex margin="50px auto 0" width="1200px" wrap="wrap" justify="flex-start">
         {
-          posts && posts.map((post) => <PostCard key={post.id} {...post} />)
+          posts && posts.length > 0 && posts.map((post) => {
+            if(post.title && post.body) {
+              return <PostCard key={post.id} {...post} />
+            }
+          })
         }
       </Flex>
     </Layout>
@@ -22,5 +35,5 @@ export default function Home({ posts }: HomeProps) {
 
 export async function getServerSideProps() {
   const res = await getPosts();
-  return { props: { posts: res } }
+  return { props: { data: res } }
 }

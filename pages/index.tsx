@@ -35,7 +35,7 @@ export default function Home({ data }: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await getPosts();
   return { props: { data: res } }
 }

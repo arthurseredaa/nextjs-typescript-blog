@@ -73,7 +73,7 @@ function CreatePost() {
       const res = await createPost(state);
       dispatch(setNewPost({ ...state, id: res.id }));
       setState({ title: "", body: "" });
-      router.push(`/posts/${res.id}`);
+      router.push(`/posts/${res.id}`, undefined, {shallow: true});
       console.log(res);
     }
   }
